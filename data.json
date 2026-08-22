@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "EMP001",
+      "name": "Rahul Sharma",
+      "email": "employee@dayflow.com",
+      "password": "employee123",
+      "role": "employee",
+      "phone": "9876543210",
+      "address": "Kolkata",
+      "department": "Engineering",
+      "designation": "Software Engineer",
+      "salary": 45000
+    },
+    {
+      "id": "HR001",
+      "name": "Admin HR",
+      "email": "admin@dayflow.com",
+      "password": "admin123",
+      "role": "admin",
+      "phone": "9000000000",
+      "address": "Kolkata",
+      "department": "Human Resources",
+      "designation": "HR Officer",
+      "salary": 70000
+    }
+  ],
+  "attendance": [],
+  "leaves": [],
+  "payroll": [
+    {
+      "employeeId": "EMP001",
+      "month": "August 2026",
+      "basic": 30000,
+      "hra": 9000,
+      "allowance": 6000,
+      "deductions": 2000
+    }
+  ]
+}
