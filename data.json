@@ -7,19 +7,80 @@
       "password": "employee123",
       "role": "employee",
       "phone": "9876543210",
+<<<<<<< HEAD
       "address": "Kolkata",
       "department": "Engineering",
       "designation": "Software Engineer",
       "salary": 45000
     },
     {
+=======
+      "address": "Kolkata, India",
+      "department": "Engineering",
+      "designation": "Software Engineer",
+      "salary": 50000
+    },
+    {
+      "id": "EMP002",
+      "name": "Priya Singh",
+      "email": "priya@dayflow.com",
+      "password": "priya123",
+      "role": "employee",
+      "phone": "9876543211",
+      "address": "Kolkata, India",
+      "department": "Design",
+      "designation": "UI/UX Designer",
+      "salary": 45000
+    },
+    {
+      "id": "EMP003",
+      "name": "Arjun Das",
+      "email": "arjun@dayflow.com",
+      "password": "arjun123",
+      "role": "employee",
+      "phone": "9876543212",
+      "address": "Kolkata, India",
+      "department": "Engineering",
+      "designation": "Frontend Developer",
+      "salary": 48000
+    },
+    {
+      "id": "EMP004",
+      "name": "Sneha Roy",
+      "email": "sneha@dayflow.com",
+      "password": "sneha123",
+      "role": "employee",
+      "phone": "9876543213",
+      "address": "Kolkata, India",
+      "department": "Marketing",
+      "designation": "Marketing Executive",
+      "salary": 42000
+    },
+    {
+      "id": "EMP005",
+      "name": "Amit Kumar",
+      "email": "amit@dayflow.com",
+      "password": "amit123",
+      "role": "employee",
+      "phone": "9876543214",
+      "address": "Kolkata, India",
+      "department": "Finance",
+      "designation": "Finance Analyst",
+      "salary": 52000
+    },
+    {
+>>>>>>> bfe0d33607b573b8bb33777caf3c85cb62b8d955
       "id": "HR001",
       "name": "Admin HR",
       "email": "admin@dayflow.com",
       "password": "admin123",
       "role": "admin",
       "phone": "9000000000",
+<<<<<<< HEAD
       "address": "Kolkata",
+=======
+      "address": "Kolkata, India",
+>>>>>>> bfe0d33607b573b8bb33777caf3c85cb62b8d955
       "department": "Human Resources",
       "designation": "HR Officer",
       "salary": 70000
@@ -31,10 +92,49 @@
     {
       "employeeId": "EMP001",
       "month": "August 2026",
+<<<<<<< HEAD
       "basic": 30000,
       "hra": 9000,
       "allowance": 6000,
       "deductions": 2000
+=======
+      "basic": 25000,
+      "hra": 12500,
+      "allowance": 12500,
+      "deductions": 2000
+    },
+    {
+      "employeeId": "EMP002",
+      "month": "August 2026",
+      "basic": 22500,
+      "hra": 11250,
+      "allowance": 11250,
+      "deductions": 1800
+    },
+    {
+      "employeeId": "EMP003",
+      "month": "August 2026",
+      "basic": 24000,
+      "hra": 12000,
+      "allowance": 12000,
+      "deductions": 1900
+    },
+    {
+      "employeeId": "EMP004",
+      "month": "August 2026",
+      "basic": 21000,
+      "hra": 10500,
+      "allowance": 10500,
+      "deductions": 1700
+    },
+    {
+      "employeeId": "EMP005",
+      "month": "August 2026",
+      "basic": 26000,
+      "hra": 13000,
+      "allowance": 13000,
+      "deductions": 2100
+>>>>>>> bfe0d33607b573b8bb33777caf3c85cb62b8d955
     }
   ]
 }

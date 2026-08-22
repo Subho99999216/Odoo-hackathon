@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "dayflow-hrms",
   "version": "1.0.0",
   "description": "Dayflow Human Resource Management System - hackathon MVP",
@@ -11,3 +12,16 @@
     "express": "^4.21.2"
   }
 }
+=======
+  "name": "dayflow-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
+>>>>>>> bfe0d33607b573b8bb33777caf3c85cb62b8d955
