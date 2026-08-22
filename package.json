@@ -1,0 +1,13 @@
+{
+  "name": "dayflow-hrms",
+  "version": "1.0.0",
+  "description": "Dayflow Human Resource Management System - hackathon MVP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
