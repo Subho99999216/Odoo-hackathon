@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Dayflow HRMS</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="login">
+      <div class="left">
+        <div class="brand">dayflow<span>•</span>
+        </div>
+        <h1>Every workday,<br>
+          <b>perfectly aligned.</b>
+        </h1>
+        <p>People, attendance, time off and salary in one intelligent workspace.</p>
+        <p>✓ Employee self-service</p>
+        <p>✓ Attendance & work hours</p>
+        <p>✓ Leave approvals</p>
+        <p>✓ Salary visibility</p>
+      </div>
+      <div class="right">
+        <div class="box">
+          <small>WELCOME BACK</small>
+          <h2>Sign in to Dayflow</h2>
+          <label>Email / Login ID</label>
+          <input id="email" placeholder="you@company.com">
+          <label>Password</label>
+          <input id="password" type="password" placeholder="Password">
+          <button onclick="login()">Sign In</button>
+          <p id="msg">
+          </p>
+          <small>Employee: employee@dayflow.com / employee123<br>HR: admin@dayflow.com / admin123</small>
+        </div>
+      </div>
+    </div>
+    <div id="app" class="hide">
+      <aside>
+        <div class="brand">dayflow<span>•</span>
+        </div>
+        <div id="user">
+        </div>
+        <button onclick="page('dashboard')">⌂ Dashboard</button>
+        <button id="emp" onclick="page('employees')">♙ Employees</button>
+        <button onclick="page('profile')">◉ My Profile</button>
+        <button onclick="page('attendance')">◷ Attendance</button>
+        <button onclick="page('timeoff')">▣ Time Off</button>
+        <button onclick="page('salary')">₹ Salary Info</button>
+        <button class="logout" onclick="logout()">↪ Log Out</button>
+      </aside>
+      <main>
+        <header>
+          <div>
+            <small>Human Resource Management System</small>
+            <h1 id="title">Dashboard</h1>
+          </div>
+          <div>
+            <input id="search" placeholder="Search..." oninput="searchRows()">
+            <b id="name">
+            </b>
+          </div>
+        </header>
+        <section id="content">
+        </section>
+      </main>
+    </div>
+    <script src="app.js">
+    </script>
+  </body>
+</html>
