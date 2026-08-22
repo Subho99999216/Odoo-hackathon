@@ -1,0 +1,76 @@
+const express=require('express');
+const cors=require('cors');
+const crypto=require('crypto');
+const fs=require('fs');
+const path=require('path');
+const app=express(),PORT=3000,FILE=path.join(__dirname,'data.json');
+app.use(cors());
+app.use(express.json());
+const seed={users:[{id:'EMP001',name:'Rahul Sharma',email:'employee@dayflow.com',password:'employee123',role:'employee',phone:'9876543210',address:'Kolkata, India',department:'Engineering',designation:'Software Engineer',salary:50000},{id:'HR001',name:'Admin HR',email:'admin@dayflow.com',password:'admin123',role:'admin',phone:'9000000000',address:'Kolkata, India',department:'Human Resources',designation:'HR Officer',salary:70000}],attendance:[],leaves:[],payroll:[{employeeId:'EMP001',month:'August 2026',basic:25000,hra:12500,allowance:12500,deductions:2000}]};
+if(!fs.existsSync(FILE))fs.writeFileSync(FILE,JSON.stringify(seed,null,2));
+let db=JSON.parse(fs.readFileSync(FILE)),sessions=new Map();
+const save=()=>fs.writeFileSync(FILE,JSON.stringify(db,null,2));
+const safe=u=>{
+    const{password,...x}=u;
+    return x};
+function auth(req,res,next){
+    const t=req.headers.authorization?.replace('Bearer ','');
+    const id=sessions.get(t);
+    const u=db.users.find(x=>x.id===id);
+    if(!u)return res.status(401).json({message:'Unauthorized'});
+    req.user=u;
+    next()}function admin(req,res,next){
+    if(req.user.role!=='admin')return res.status(403).json({message:'HR/Admin only'});
+    next()}
+app.post('/api/auth/login',(req,res)=>{
+    const{email,password}=req.body;
+    const u=db.users.find(x=>x.email.toLowerCase()===String(email).toLowerCase()&&x.password===password);
+    if(!u)return res.status(401).json({message:'Invalid email or password'});
+    const token=crypto.randomBytes(24).toString('hex');
+    sessions.set(token,u.id);
+    res.json({token,user:safe(u)})});
+app.get('/api/me',auth,(req,res)=>res.json(safe(req.user)));
+app.get('/api/dashboard',auth,(req,res)=>{
+    const today=new Date().toISOString().slice(0,10);
+    if(req.user.role==='admin')return res.json({employees:db.users.filter(x=>x.role==='employee').length,todayAttendance:db.attendance.filter(x=>x.date===today).length,pendingLeaves:db.leaves.filter(x=>x.status==='Pending').length});
+    const a=db.attendance.find(x=>x.employeeId===req.user.id&&x.date===today);
+    res.json({attendance:a?.status||'Not Checked In',pendingLeaves:db.leaves.filter(x=>x.employeeId===req.user.id&&x.status==='Pending').length,salary:req.user.salary})});
+app.get('/api/profile',auth,(req,res)=>res.json(safe(req.user)));
+app.put('/api/profile',auth,(req,res)=>{['name','phone','address','department','designation'].forEach(k=>{
+        if(req.body[k]!==undefined)req.user[k]=req.body[k]});
+    save();
+    res.json(safe(req.user))});
+app.get('/api/employees',auth,admin,(req,res)=>res.json(db.users.filter(x=>x.role==='employee').map(safe)));
+app.get('/api/attendance',auth,(req,res)=>res.json(req.user.role==='admin'?db.attendance:db.attendance.filter(x=>x.employeeId===req.user.id)));
+app.post('/api/attendance/checkin',auth,(req,res)=>{
+    const date=new Date().toISOString().slice(0,10);
+    if(db.attendance.some(x=>x.employeeId===req.user.id&&x.date===date))return res.status(409).json({message:'Already checked in today'});
+    const r={id:crypto.randomUUID(),employeeId:req.user.id,employeeName:req.user.name,date,checkIn:new Date().toLocaleTimeString(),checkOut:null,status:'Present'};
+    db.attendance.push(r);
+    save();
+    res.json(r)});
+app.post('/api/attendance/checkout',auth,(req,res)=>{
+    const date=new Date().toISOString().slice(0,10);
+    const r=db.attendance.find(x=>x.employeeId===req.user.id&&x.date===date);
+    if(!r)return res.status(404).json({message:'Check in first'});
+    if(r.checkOut)return res.status(409).json({message:'Already checked out'});
+    r.checkOut=new Date().toLocaleTimeString();
+    save();
+    res.json(r)});
+app.get('/api/leaves',auth,(req,res)=>res.json(req.user.role==='admin'?db.leaves:db.leaves.filter(x=>x.employeeId===req.user.id)));
+app.post('/api/leaves',auth,(req,res)=>{
+    const{type,from,to,reason}=req.body;
+    if(!type||!from||!to)return res.status(400).json({message:'Leave type and dates are required'});
+    const r={id:crypto.randomUUID(),employeeId:req.user.id,employeeName:req.user.name,type,from,to,reason:reason||'',status:'Pending',adminComment:''};
+    db.leaves.push(r);
+    save();
+    res.status(201).json(r)});
+app.put('/api/leaves/:id',auth,admin,(req,res)=>{
+    const r=db.leaves.find(x=>x.id===req.params.id);
+    if(!r)return res.status(404).json({message:'Leave not found'});
+    r.status=req.body.status;
+    r.adminComment=req.body.adminComment||'';
+    save();
+    res.json(r)});
+app.get('/api/payroll',auth,(req,res)=>res.json(req.user.role==='admin'?db.payroll:db.payroll.filter(x=>x.employeeId===req.user.id)));
+app.listen(PORT,()=>console.log(`Dayflow backend running at http://localhost:${PORT}`));
