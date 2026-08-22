@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dayflow HRMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage" class="login-page">
+
+    <div class="login-card">
+
+        <h1>dayflow</h1>
+        <p>Every workday, perfectly aligned.</p>
+
+        <input id="email" type="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+
+        <button onclick="login()">Sign In</button>
+
+        <p id="loginMessage"></p>
+
+        <small>
+            Demo Employee:<br>
+            employee@dayflow.com / employee123
+        </small>
+
+        <small>
+            Demo HR:<br>
+            admin@dayflow.com / admin123
+        </small>
+
+    </div>
+
+</div>
+
+
+<!-- APPLICATION -->
+
+<div id="app" class="hidden">
+
+    <aside class="sidebar">
+
+        <h2>dayflow</h2>
+
+        <div id="userInfo"></div>
+
+        <button onclick="showPage('dashboard')">
+            Dashboard
+        </button>
+
+        <button onclick="showPage('profile')">
+            My Profile
+        </button>
+
+        <button onclick="showPage('attendance')">
+            Attendance
+        </button>
+
+        <button onclick="showPage('leaves')">
+            Time Off
+        </button>
+
+        <button onclick="showPage('payroll')">
+            Payroll
+        </button>
+
+        <button id="employeesButton"
+                class="hidden"
+                onclick="showPage('employees')">
+            Employees
+        </button>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <main class="content">
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboard" class="page">
+
+            <h1>Dashboard</h1>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Attendance</h3>
+                    <h2 id="attendanceStatus">-</h2>
+                </div>
+
+                <div class="card">
+                    <h3>Pending Leaves</h3>
+                    <h2 id="pendingLeaves">0</h2>
+                </div>
+
+                <div class="card">
+                    <h3>Salary</h3>
+                    <h2 id="salary">₹0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROFILE -->
+
+        <section id="profile" class="page hidden">
+
+            <h1>My Profile</h1>
+
+            <div class="card">
+
+                <label>Name</label>
+                <input id="profileName">
+
+                <label>Email</label>
+                <input id="profileEmail" disabled>
+
+                <label>Phone</label>
+                <input id="profilePhone">
+
+                <label>Address</label>
+                <input id="profileAddress">
+
+                <label>Department</label>
+                <input id="profileDepartment">
+
+                <label>Designation</label>
+                <input id="profileDesignation">
+
+                <button onclick="updateProfile()">
+                    Save Profile
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ATTENDANCE -->
+
+        <section id="attendance" class="page hidden">
+
+            <h1>Attendance</h1>
+
+            <div class="card">
+
+                <button onclick="checkIn()">
+                    Check In
+                </button>
+
+                <button onclick="checkOut()">
+                    Check Out
+                </button>
+
+            </div>
+
+            <div class="card">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Employee</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="attendanceTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- LEAVES -->
+
+        <section id="leaves" class="page hidden">
+
+            <h1>Time Off</h1>
+
+            <div class="card">
+
+                <select id="leaveType">
+
+                    <option>Paid Leave</option>
+                    <option>Sick Leave</option>
+                    <option>Unpaid Leave</option>
+
+                </select>
+
+                <input id="leaveFrom" type="date">
+                <input id="leaveTo" type="date">
+
+                <input id="leaveReason"
+                       placeholder="Reason">
+
+                <button onclick="applyLeave()">
+                    Apply Leave
+                </button>
+
+            </div>
+
+            <div class="card">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="leaveTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAYROLL -->
+
+        <section id="payroll" class="page hidden">
+
+            <h1>Payroll</h1>
+
+            <div id="payrollContent"></div>
+
+        </section>
+
+
+        <!-- ADMIN EMPLOYEES -->
+
+        <section id="employees" class="page hidden">
+
+            <h1>Employees</h1>
+
+            <div class="card">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Salary</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="employeeTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
